@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
+    
     List <User> listUsers=new ArrayList<User>();
     @PostMapping("/trayendoJson")
     public User trayendoJson(@RequestBody User user ) {

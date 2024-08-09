@@ -1,33 +1,33 @@
-document.getElementById('registroForm').onsubmit = function(event) {
-    event.preventDefault();
-const nombre = document.getElementById('nombre').value;
-    const apellido = document.getElementById('apellido').value;
-    const edad = document.getElementById('edad').value;
-    const cedula = document.getElementById('cedula').value;
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevenir el envío del formulario
 
-    // Crear un objeto con los datos
-    const datosFormulario = {
+    // Obtener los valores de los campos
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const edad = document.getElementById("edad").value;
+    const cedula = document.getElementById("cedula").value;
+
+    // Crear el objeto JSON
+    const user = {
         nombre: nombre,
         apellido: apellido,
-        edad: edad,
+        edad: parseInt(edad),
         cedula: cedula
     };
-    const jsonDatos = JSON.stringify(datosFormulario);
-    // Enviar el JSON al endpoint /trayendoJson
-    fetch('/trayendoJson', {
-        method: 'POST',
+
+    // Enviar la solicitud POST usando fetch
+    fetch("/api/trayendoJson", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        body: jsonDatos
+        body: JSON.stringify(user)
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Respuesta del servidor:', data);
-        alert('Datos enviados exitosamente!');
+        console.log("Usuario registrado:", data);
     })
     .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error al enviar los datos.');
+        console.error("Error al registrar el usuario:", error);
     });
-}
+});
